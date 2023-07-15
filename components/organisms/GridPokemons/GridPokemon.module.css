@@ -1,0 +1,6 @@
+.gridPokemon {
+    padding: .75rem;
+    display: flex;
+    flex-wrap: wrap;
+    gap: .75rem;
+}

@@ -1,3 +1,5 @@
+"use client";
+
 import { styled } from "styled-components";
 
 export const SideMenu = styled.aside`
@@ -22,6 +24,7 @@ export const SideMenu = styled.aside`
         background-color: #DE1537;
         position: absolute;
         width: 100%;
+        transition: .2s top, .2s height;
     }
     hr {
         opacity: .05;

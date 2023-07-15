@@ -3,6 +3,9 @@ import SideMenu from '@/components/organisms/SideMenu/SideMenu'
 import './globals.css'
 import { Inter } from 'next/font/google'
 import React from 'react'
+import StyledComponentsRegistry from '@/public/registry'
+import { Provider } from 'react-redux'
+import store from '@/redux/store'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -19,11 +22,15 @@ export default function RootLayout({
   return (
     <React.StrictMode>
     <html lang="en">
-      <body className={inter.className}>
-        <SideMenu />
-        {children}
-        <aside></aside>
-      </body>
+      <Provider store={store}>
+        <StyledComponentsRegistry>
+          <body className={inter.className}>
+            <SideMenu />
+            {children}
+            <aside></aside>
+          </body>
+        </StyledComponentsRegistry>
+      </Provider>
     </html>
     </React.StrictMode>
   )

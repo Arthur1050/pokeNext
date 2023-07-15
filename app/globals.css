@@ -18,4 +18,6 @@ body {
   height: 100vh;
   margin: 0;
   overflow: hidden;
+  background-color: #262c2e;
+  gap: 1rem;
 }
