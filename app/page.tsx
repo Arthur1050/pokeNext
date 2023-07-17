@@ -8,7 +8,7 @@ import { useDispatch, useSelector, connect } from 'react-redux'
 
 export default function Home() {
   const dispatch = useDispatch();
-  const {viewModal} = useSelector((rootReducer:any) => rootReducer.modalReducer);
+
   
   const closeOverlay = () => {
     dispatch(closeModal());
@@ -19,10 +19,10 @@ export default function Home() {
       <main className='bg-slate-100 rounded-lg overflow-auto'>
         <GridPokemons />
       </main>
-        <Overlay state={viewModal}>
-          <div onClick={closeOverlay} className='inset-0 absolute'></div>
-          <ModalPokeDetails />
-        </Overlay>
+      <Overlay>
+        <div onClick={closeOverlay} className='inset-0 absolute'></div>
+        <ModalPokeDetails />
+      </Overlay>
       {
         /* viewModal && (
         ) */

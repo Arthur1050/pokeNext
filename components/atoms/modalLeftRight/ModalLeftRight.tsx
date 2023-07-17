@@ -11,7 +11,7 @@ export default function ModalLeftRight({
     state: boolean
 }) {
     return(
-        <ModalLeftRightDiv $view={state}>
+        <ModalLeftRightDiv className={state ? 'viewModal' : ''} $view={state}>
             {children}
         </ModalLeftRightDiv>
     )

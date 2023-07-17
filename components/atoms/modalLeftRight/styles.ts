@@ -12,7 +12,9 @@ export const ModalLeftRightDiv = styled.div<{$view:boolean}>`
     left: 0;
     height: 100vh;
     transition: .2s all;
-    ${props => props.$view && css`
+    &.viewModal {
         width: 47vw;
+    }
+    ${props => props.$view && css`
     `}
 `

@@ -1,3 +1,4 @@
+'use client'
 import { PokeBall } from '@/public/assets/svg/Pokeball'
 import * as Styles from './Styles'
 import { Info } from 'lucide-react'

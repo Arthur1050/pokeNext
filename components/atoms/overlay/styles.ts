@@ -1,4 +1,3 @@
-"use client"
 import { css, styled } from "styled-components";
 
 export const OverlayDiv = styled.div<{$view:boolean}>`

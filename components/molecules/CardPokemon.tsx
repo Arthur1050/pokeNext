@@ -2,7 +2,8 @@ import Image from "next/image";
 import { CardPokemonDiv } from "./styles";
 import { useDispatch } from "react-redux"
 import { openModal } from "@/redux/modal/actions";
-import { useState } from "react";
+import { MouseEvent} from "react";
+import { selPokemon } from "@/redux/pokemon/actions";
 
 interface CardPokemon {
     pokemon: {
@@ -15,6 +16,7 @@ export default function CardPokemon({pokemon} : CardPokemon) {
 
     const viewPokemonDetails = () => {
         dispatch(openModal());
+        dispatch(selPokemon(pokemon.id.toString()))
     }
 
     return(
