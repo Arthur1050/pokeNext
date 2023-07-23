@@ -22,15 +22,15 @@ export default function RootLayout({
   return (
     <React.StrictMode>
     <html lang="en">
+          <body className={inter.className}>
       <Provider store={store}>
         <StyledComponentsRegistry>
-          <body className={inter.className}>
             <SideMenu />
             {children}
             <aside></aside>
-          </body>
         </StyledComponentsRegistry>
       </Provider>
+          </body>
     </html>
     </React.StrictMode>
   )

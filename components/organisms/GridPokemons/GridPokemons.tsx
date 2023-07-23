@@ -1,5 +1,6 @@
 import CardPokemon from "@/components/molecules/CardPokemon";
 import styles from './GridPokemon.module.css'
+import { getDataPokemon } from "@/app/actions";
 
 interface Pokemons {
     name: string,
@@ -23,7 +24,7 @@ export default async function GridPokemons() {
         <div className={styles.gridPokemon}>
             {pokemons?.map((pokemon) => (
                 <>
-                <CardPokemon key={pokemon.id} pokemon={pokemon}/>
+                <CardPokemon key={pokemon.id} pokemon={pokemon} getData={getDataPokemon}/>
                 </>
             ))}
         </div>

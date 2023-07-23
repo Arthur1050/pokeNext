@@ -1,23 +1,42 @@
 'use client'
-
 import ModalLeftRight from "@/components/atoms/modalLeftRight/ModalLeftRight";
-import rootReducer from "@/redux/root-reducer";
+import Image from "next/image";
 import { useSelector } from "react-redux";
 
-export default async function ModalPokeDetails() {
+interface Pokemon {
+    selected: {
+        name: string,
+        id: string,
+        base_experience: number,
+        height: number,
+        weight: number
+    }
+}
+
+export default function ModalPokeDetails() {
+    const {selected}:Pokemon = useSelector((rootReducer:any) => rootReducer.pokemonReducer);
     const {viewModal} = useSelector((rootReducer:any) => rootReducer.modalReducer);
-    const {selectedId} = useSelector((rootReducer:any) => rootReducer.pokemonReducer);
-
-    const api = 'https://pokeapi.co/api/v2/pokemon/';
-
-    const res = await fetch(`${api + selectedId}`);
-    const data = await res.json();
-
-    console.log(data)
+    
+    console.log(selected)
 
     return(
         <ModalLeftRight state={viewModal}>
-            <p></p>
+            {selected && (
+                <>
+                    <div>
+                        <Image 
+                            src={`https://nexus.traction.one/images/pokemon/pokemon/${selected.id}.png`}
+                            height={'120'}
+                            width={'120'}
+                            alt={selected.name + '.png'}
+                        />
+                        <p>{selected.name}</p>
+                        <p>EXP Base: {selected.base_experience}</p>
+                        <p>Altura: {selected.height}</p>
+                        <p>Peso: {selected.weight}</p>
+                    </div>
+                </>
+            )}
         </ModalLeftRight>
     )
 }

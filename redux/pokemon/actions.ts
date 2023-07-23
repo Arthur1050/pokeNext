@@ -1,6 +1,6 @@
 import { pokemonActionTypes } from "./action-types"
 
-export const selPokemon = (payload:string) => ({
+export const selPokemon = (payload:{}) => ({
     type: pokemonActionTypes.SELECTED,
     payload
 })

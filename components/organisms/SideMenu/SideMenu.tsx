@@ -36,7 +36,7 @@ export default function SideMenu() {
     return(
         <Styles.SideMenu>
             <ul>
-                <div style={selState}/>
+                <div style={selState} />
                 {itemsMenu.map((el, i) => (
                     <li key={i} ref={i ? null : firstItem} onClick={ev => handleMenuItems(ev)}>
                         {el.icon}

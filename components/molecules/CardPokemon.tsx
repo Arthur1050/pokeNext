@@ -1,8 +1,8 @@
+'use client'
 import Image from "next/image";
 import { CardPokemonDiv } from "./styles";
 import { useDispatch } from "react-redux"
 import { openModal } from "@/redux/modal/actions";
-import { MouseEvent} from "react";
 import { selPokemon } from "@/redux/pokemon/actions";
 
 interface CardPokemon {
@@ -10,13 +10,15 @@ interface CardPokemon {
         name: string,
         id: number
     }
+    getData: (selectedId:string) => Promise<{}>
 }
-export default function CardPokemon({pokemon} : CardPokemon) {
+export default async function CardPokemon({pokemon, getData} : CardPokemon) {
     const dispatch = useDispatch();
 
-    const viewPokemonDetails = () => {
+    const viewPokemonDetails = async () => {
         dispatch(openModal());
-        dispatch(selPokemon(pokemon.id.toString()))
+        const data = await getData(pokemon.id.toString()); 
+        dispatch(selPokemon(data))
     }
 
     return(

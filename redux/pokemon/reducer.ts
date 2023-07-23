@@ -2,7 +2,7 @@ import { AnyAction } from "redux";
 import { pokemonActionTypes } from "./action-types";
 
 const initialState = {
-    selectedId: null,
+    selected: null,
 }
 
 export default function pokemonReducer(state = initialState, action: AnyAction) {
@@ -10,7 +10,7 @@ export default function pokemonReducer(state = initialState, action: AnyAction) 
         case pokemonActionTypes.SELECTED :
             return {
                 ...state,
-                selectedId: action.payload
+                selected: action.payload
             };
         default:
             return state;
