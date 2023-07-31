@@ -2,7 +2,7 @@
 
 import { css, styled } from "styled-components"
 
-export const ModalLeftRightDiv = styled.div<{$view:boolean}>`
+export const ModalLeftRightDiv = styled.div<{$view?:boolean}>`
     width: 0vw;
     max-width: 640px;
     background-color: #fff;

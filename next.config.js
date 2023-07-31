@@ -5,7 +5,7 @@ const nextConfig = {
     serverActions: true,
   },
   images: {
-    domains: ["nexus.traction.one"]
+    domains: ["nexus.traction.one", "raw.githubusercontent.com"]
   },
   compiler: {
     styledComponents: true,
