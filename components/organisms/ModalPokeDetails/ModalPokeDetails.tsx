@@ -43,6 +43,7 @@ const colorType = (type:string) => {
 
 const ModalDetails = styled(ModalLeftRightDiv)<{$type:string}>`
     --primary-color: ${props => colorType(props.$type)};
+    color: #262626;
     overflow: hidden;
     .divImagePoke {
         background-color: var(--primary-color);
@@ -88,7 +89,7 @@ export default function ModalPokeDetails() {
     const {selected}:Pokemon = useSelector((rootReducer:any) => rootReducer.pokemonReducer);
     const {viewModal} = useSelector((rootReducer:any) => rootReducer.modalReducer);
     
-    console.log(selected)
+    console.log(`selected`)
 
     return(
         <ModalDetails $type={selected ? selected.types[0].type.name:''} className={viewModal ? 'viewModal' : ''}>
@@ -96,7 +97,7 @@ export default function ModalPokeDetails() {
                 <>
                     <div>
                         <div className="divImagePoke">
-                            <span className="absolute right-8 text-white top-0 text-[6rem] font-bold opacity-20">#{selected.id}</span>
+                            <span className="absolute right-8 text-white top-0 text-[6rem] font-bold opacity-20 select-none">#{selected.id}</span>
                             <Image 
                                 /* src={`https://nexus.traction.one/images/pokemon/pokemon/${selected.id}.png`} */
                                 src={`https://raw.githubusercontent.com/wellrccity/pokedex-html-js/master/assets/img/pokemons/poke_${selected.id}.gif`}
@@ -116,15 +117,15 @@ export default function ModalPokeDetails() {
                             </div>
                             <div className="flex text-center mt-4">
                                 <div className="w-[calc(100%/3)]">
-                                    <p>EXP Base</p>
+                                    <p className="font-semibold">EXP Base</p>
                                     <p>{selected.base_experience}</p>
                                 </div>
                                 <div className="w-[calc(100%/3)]">
-                                    <p>Altura</p>
+                                    <p className="font-semibold">Altura</p>
                                     <p>{selected.height}</p>
                                 </div>
                                 <div className="w-[calc(100%/3)]">
-                                    <p>Peso</p>
+                                    <p className="font-semibold">Peso</p>
                                     <p>{selected.weight}</p>
                                 </div>
                             </div>
