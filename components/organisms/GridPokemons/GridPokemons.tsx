@@ -16,31 +16,21 @@ async function getPokemons(limit:number, offset:number):Promise<{results: Pokemo
         cache: "no-cache"
     });
 
-    return res.json();
-}
+    const data:Promise<{results: Pokemons[]}> = res.json();
 
-export default async function GridPokemons() {
-    /* const [pokemons, setPokemons] = useState((await getPokemons(30, 0)).results) */
-    const allPokemons = (await getPokemons(251, 0)).results
-
-    allPokemons.forEach((pokemon, i) => {
+    (await data).results.forEach((pokemon, i) => {
         pokemon.id = i + 1;
     })
 
-    const loadMore = async () => {
-        console.log('porra')
-        /* setPokemons(
-            pokemons.concat((await getPokemons(30, (pokemons[pokemons.length - 1].id - 1))).results)
-        ) */
-    }
+    return data;
+}
 
-    const pokemons = (limit:number) => {
-        return allPokemons.slice(0, limit)
-    }
+export default function GridPokemons() {
+    const pokemons = getPokemons(30, 0);
 
     return(
         <GridPokemonsStyle>
-            <MountCards getData={getDataPokemon} pokemons={getPokemons}/>
+            <MountCards getData={getDataPokemon} pokemons={pokemons} getPokemons={getPokemons}/>
         </GridPokemonsStyle>
     )
 }
