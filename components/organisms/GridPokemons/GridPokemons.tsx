@@ -38,14 +38,13 @@ export default function GridPokemons({getData}:{
         const data = await getPokemons(30, currentPokemonsCount);
          
         // Monta um bloco de pokemons
-        const blockResult = data.results.map(pokemon => <CardPokemon pokemon={pokemon} getData={getData}/>)
+        const blockResult = data.results.map(pokemon => <CardPokemon key={pokemon.id} pokemon={pokemon} getData={getData}/>)
 
         setPokemonsBlock(prevPokemonsBlock => [...prevPokemonsBlock , blockResult])
     }
 
     const observerFunction = (entries:IntersectionObserverEntry[]) => {
         const [entry] = entries;
-        console.log(entry.isIntersecting);
 
         if (entry.isIntersecting) {
             loadPokemons()
@@ -53,7 +52,6 @@ export default function GridPokemons({getData}:{
     }
 
     useEffect(() => {
-        console.log(`renderizou`)
         const observer = (typeof window !== "undefined") ? new IntersectionObserver(observerFunction, {
             threshold: 1.0,
             root: null
@@ -64,16 +62,13 @@ export default function GridPokemons({getData}:{
         return () => {
             observer?.disconnect()
         }
-    }, [])
-
-    useLayoutEffect(() => {
-    }, [])
+    })
 
     return(
         <GridPokemonsStyle ref={gridContainer}>
             <>
-                {pokemonsBlock.map(block => (
-                        <Suspense fallback={<SKDGridPokemon />}>
+                {pokemonsBlock.map((block, i) => (
+                        <Suspense key={i} fallback={<SKDGridPokemon />}>
                             {block}
                         </Suspense>
                     )
@@ -93,7 +88,7 @@ function SKDGridPokemon() {
     const cards = [];
     for(let i = 0; i <= 30; i++) {
       cards.push(
-        <SkeletonDiv className='rounded-lg bg-red-700 w-[8rem] h-[11rem] flex-grow'/>
+        <SkeletonDiv key={i} className='rounded-lg bg-red-700 w-[8rem] h-[11rem] flex-grow'/>
       )
     }
     return(

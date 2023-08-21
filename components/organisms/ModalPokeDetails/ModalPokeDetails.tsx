@@ -1,4 +1,5 @@
 'use client'
+import { SkeletonDiv } from "@/components/atoms/SkeletonDiv/SkeletonDiv";
 import { ModalLeftRightDiv } from "@/components/atoms/modalLeftRight/styles";
 import Image from "next/image";
 import { useSelector } from "react-redux";
@@ -88,12 +89,10 @@ const ModalDetails = styled(ModalLeftRightDiv)<{$type:string}>`
 export default function ModalPokeDetails() {
     const {selected}:Pokemon = useSelector((rootReducer:any) => rootReducer.pokemonReducer);
     const {viewModal} = useSelector((rootReducer:any) => rootReducer.modalReducer);
-    
-    console.log(`selected`)
 
     return(
-        <ModalDetails $type={selected ? selected.types[0].type.name:''} className={viewModal ? 'viewModal' : ''}>
-            {selected && (
+        <ModalDetails $type={selected?.types ? selected.types[0].type.name:''} className={viewModal ? 'viewModal' : ''}>
+            {selected?.types ? (
                 <>
                     <div>
                         <div className="divImagePoke">
@@ -109,8 +108,8 @@ export default function ModalPokeDetails() {
                         <div className="px-4 mt-[3.5rem]">
                             <p className="name">{selected.name}</p>
                             <div className="containerTypes">
-                                {selected.types.map(type => (
-                                    <span style={{
+                                {selected.types.map((type, i) => (
+                                    <span key={i} style={{
                                         backgroundColor: colorType(type.type.name)
                                     }}>{type.type.name}</span>
                                 ))}
@@ -139,7 +138,7 @@ export default function ModalPokeDetails() {
                                                 width: `${(stat.base_stat/255)*100}%`
                                             }} className={`h-full rounded bg-blue-700`}/>
                                         </div>
-                                        <span >{stat.stat.name}</span>
+                                        <span>{stat.stat.name}</span>
                                         </>
                                     ))}
                                 </div>
@@ -147,7 +146,22 @@ export default function ModalPokeDetails() {
                         </div>
                     </div>
                 </>
-            )}
+            ) : <div className="flex flex-col items-center mt-8">
+                    <SkeletonDiv className="w-[50%] h-[12rem] rounded-lg"/>
+                    <SkeletonDiv className="w-[20%] h-[1.5rem] mt-4 rounded-lg"/>
+                    <SkeletonDiv className="w-[10%] h-[1.5rem] mt-2 rounded-lg"/>
+                    <div className="w-full flex justify-around mt-8">
+                        <SkeletonDiv className="w-[20%] h-[3rem] rounded-lg"/>
+                        <SkeletonDiv className="w-[20%] h-[3rem] rounded-lg"/>
+                        <SkeletonDiv className="w-[20%] h-[3rem] rounded-lg"/>
+                    </div>
+                    <SkeletonDiv className="w-[90%] mt-8 h-[1.5rem] rounded-lg"/>
+                    <SkeletonDiv className="w-[90%] mt-2 h-[1.5rem] rounded-lg"/>
+                    <SkeletonDiv className="w-[90%] mt-2 h-[1.5rem] rounded-lg"/>
+                    <SkeletonDiv className="w-[90%] mt-2 h-[1.5rem] rounded-lg"/>
+                    <SkeletonDiv className="w-[90%] mt-2 h-[1.5rem] rounded-lg"/>
+                    <SkeletonDiv className="w-[90%] mt-2 h-[1.5rem] rounded-lg"/>
+                </div>}
         </ModalDetails>
     )
 }

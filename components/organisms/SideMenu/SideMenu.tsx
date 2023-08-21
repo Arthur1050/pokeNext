@@ -31,7 +31,7 @@ export default function SideMenu() {
             height: `${firstItem.current?.offsetHeight}px`,
             top: `${firstItem.current?.offsetTop}px`
         })
-    }, [firstItem.current])
+    }, [])
 
     return(
         <Styles.SideMenu>

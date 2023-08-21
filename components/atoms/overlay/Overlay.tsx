@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { OverlayDiv } from "./styles"
 import { Dispatch, SetStateAction } from "react"
 import { closeModal } from "@/redux/modal/actions";
+import { selPokemon } from "@/redux/pokemon/actions";
 
 
 export default function Overlay({
@@ -18,6 +19,7 @@ export default function Overlay({
     const {viewModal} = useSelector((rootReducer:any) => rootReducer.modalReducer);
     const closeOverlay = () => {
       dispatch(closeModal());
+      setTimeout(() => dispatch(selPokemon({})), 200)
     }
     return(
         /* viewModal ? ( */

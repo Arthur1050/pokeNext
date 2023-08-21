@@ -4,6 +4,7 @@ import { CardPokemonDiv } from "./styles";
 import { useDispatch } from "react-redux"
 import { openModal } from "@/redux/modal/actions";
 import { selPokemon } from "@/redux/pokemon/actions";
+import imgLoader from "@/public/assets/img/pokeball-icon-png-2.jpg"
 
 interface CardPokemon {
     pokemon: {

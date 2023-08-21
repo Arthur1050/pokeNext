@@ -2,7 +2,6 @@ import Overlay from '@/components/atoms/overlay/Overlay'
 import GridPokemons from '@/components/organisms/GridPokemons/GridPokemons'
 import ModalPokeDetails from '@/components/organisms/ModalPokeDetails/ModalPokeDetails'
 import { getDataPokemon } from "@/app/actions";
-import { Suspense } from 'react'
 
 export default function Home() {
 
