@@ -1,11 +1,8 @@
-'use client'
 import SideMenu from '@/components/organisms/SideMenu/SideMenu'
 import './globals.css'
 import { Inter } from 'next/font/google'
 import React from 'react'
-import StyledComponentsRegistry from '@/public/registry'
-import { Provider } from 'react-redux'
-import store from '@/redux/store'
+import Providers from './providers'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -23,13 +20,11 @@ export default function RootLayout({
     <React.StrictMode>
     <html lang="en">
           <body className={inter.className}>
-      <Provider store={store}>
-        <StyledComponentsRegistry>
-            <SideMenu />
-            {children}
-            <aside></aside>
-        </StyledComponentsRegistry>
-      </Provider>
+            <Providers>
+              <SideMenu />
+                {children}
+              <aside></aside>
+            </Providers>
           </body>
     </html>
     </React.StrictMode>
