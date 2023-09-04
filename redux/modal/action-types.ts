@@ -1,3 +1,4 @@
 export const modalActionsTypes = {
-    VIEW: "theme/view"
+    POKEMON_VIEW: "theme/pokemon",
+    SEARCH: "theme/search"
 }

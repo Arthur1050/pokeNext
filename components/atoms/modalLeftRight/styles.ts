@@ -3,18 +3,20 @@
 import { css, styled } from "styled-components"
 
 export const ModalLeftRightDiv = styled.div<{$view?:boolean}>`
-    width: 0vw;
-    max-width: 640px;
+    animation: ModalLeftRight forwards .2s;
     background-color: #fff;
-    border-radius: 0 2rem 2rem 0;
     position: absolute;
     margin-inline: auto;
+    transition: .2s all;
+    max-width: 640px;
+    border-radius: 0 2rem 2rem 0;
     left: 0;
     height: 100vh;
-    transition: .2s all;
-    &.viewModal {
-        width: 47vw;
+    @keyframes ModalLeftRight {
+        from {
+            width: 0vw;
+        } to {
+            width: 47vw;
+        }
     }
-    ${props => props.$view && css`
-    `}
 `

@@ -2,24 +2,21 @@
 import Image from "next/image";
 import { CardPokemonDiv } from "./styles";
 import { useDispatch } from "react-redux"
-import { openModal } from "@/redux/modal/actions";
+import { openModalPokemon } from "@/redux/modal/actions";
 import { selPokemon } from "@/redux/pokemon/actions";
-import imgLoader from "@/public/assets/img/pokeball-icon-png-2.jpg"
 
 interface CardPokemon {
     pokemon: {
         name: string,
         id: number
     }
-    getData: (selectedId:string) => Promise<{}>
 }
-export default async function CardPokemon({pokemon, getData} : CardPokemon) {
+export default async function CardPokemon({pokemon} : CardPokemon) {
     const dispatch = useDispatch();
 
-    const viewPokemonDetails = async () => {
-        dispatch(openModal());
-        const data = await getData(pokemon.id.toString()); 
-        dispatch(selPokemon(data))
+    const viewPokemonDetails = () => {
+        dispatch(openModalPokemon());
+        dispatch(selPokemon(pokemon.id))
     }
 
     return(

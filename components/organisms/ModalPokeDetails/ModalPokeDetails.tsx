@@ -1,46 +1,12 @@
 'use client'
 import { SkeletonDiv } from "@/components/atoms/SkeletonDiv/SkeletonDiv";
 import { ModalLeftRightDiv } from "@/components/atoms/modalLeftRight/styles";
+import TypeBadge, { colorType } from "@/components/atoms/typeBadge/TypeBadge";
+import { Pokemon, usePokemon } from "@/utils/hooks/usePokemon";
 import Image from "next/image";
+import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { styled } from "styled-components";
-
-interface Pokemon {
-    selected: {
-        name: string,
-        id: string,
-        base_experience: number,
-        height: number,
-        weight: number
-        types: Array<{
-            slot: number,
-            type: {name: string, url: string}
-        }>,
-        stats: Array<{
-            base_stat: number,
-            effort: number,
-            stat: {
-                name: string,
-                url: string
-            }
-        }>
-    }
-}
-
-const colorType = (type:string) => {
-    switch(type) {
-            case 'bug': return '#B9BF04';
-            case 'grass': return '#618C03';
-            case 'fire': return '#E8740C';
-            case 'water': return '#77B9E3';
-            case 'psychic': return '#f35182';
-            case 'rock': return '#A6948D';
-            case 'electric': return '#F2BC21';
-            case 'poison': return '#77009C';
-            case 'fighting': return '#c93129';
-            default: return '#b2b2b2';
-        }
-}
 
 const ModalDetails = styled(ModalLeftRightDiv)<{$type:string}>`
     --primary-color: ${props => colorType(props.$type)};
@@ -87,50 +53,57 @@ const ModalDetails = styled(ModalLeftRightDiv)<{$type:string}>`
 `
 
 export default function ModalPokeDetails() {
-    const {selected}:Pokemon = useSelector((rootReducer:any) => rootReducer.pokemonReducer);
-    const {viewModal} = useSelector((rootReducer:any) => rootReducer.modalReducer);
+    const [viewPokemon, setViewPokemon] = useState<Pokemon>()
+
+    const {selected}:{selected:number} = useSelector((rootReducer:any) => rootReducer.pokemonReducer);
+    const {pokemonView} = useSelector((rootReducer:any) => rootReducer.modalReducer);
+
+    useEffect(() => {
+        (async () => {
+            const data = await usePokemon(selected);
+            setViewPokemon(data)
+        })();
+    }, [])
 
     return(
-        <ModalDetails $type={selected?.types ? selected.types[0].type.name:''} className={viewModal ? 'viewModal' : ''}>
-            {selected?.types ? (
+        <ModalDetails $type={viewPokemon?.types ? viewPokemon.types[0].type.name:''} className={pokemonView ? 'viewModal' : ''}>
+            {viewPokemon?.types ? (
                 <>
                     <div>
                         <div className="divImagePoke">
-                            <span className="absolute right-8 text-white top-0 text-[6rem] font-bold opacity-20 select-none">#{selected.id}</span>
+                            <span className="absolute right-8 text-white top-0 text-[6rem] font-bold opacity-20 select-none">#{viewPokemon.id}</span>
                             <Image 
-                                /* src={`https://nexus.traction.one/images/pokemon/pokemon/${selected.id}.png`} */
-                                src={`https://raw.githubusercontent.com/wellrccity/pokedex-html-js/master/assets/img/pokemons/poke_${selected.id}.gif`}
+                                /* src={`https://nexus.traction.one/images/pokemon/pokemon/${viewPokemon.id}.png`} */
+                                src={`https://raw.githubusercontent.com/wellrccity/pokedex-html-js/master/assets/img/pokemons/poke_${viewPokemon.id}.gif`}
                                 height={'120'}
                                 width={'120'}
-                                alt={selected.name + '.png'}
+                                alt={viewPokemon.name + '.png'}
                             />
                         </div>
                         <div className="px-4 mt-[3.5rem]">
-                            <p className="name">{selected.name}</p>
+                            <p className="name">{viewPokemon.name}</p>
                             <div className="containerTypes">
-                                {selected.types.map((type, i) => (
-                                    <span key={i} style={{
-                                        backgroundColor: colorType(type.type.name)
-                                    }}>{type.type.name}</span>
+                                {viewPokemon.types.map((type, i) => (
+                                    <TypeBadge type={type}/>
                                 ))}
                             </div>
                             <div className="flex text-center mt-4">
                                 <div className="w-[calc(100%/3)]">
                                     <p className="font-semibold">EXP Base</p>
-                                    <p>{selected.base_experience}</p>
+                                    <p>{viewPokemon.base_experience}</p>
                                 </div>
                                 <div className="w-[calc(100%/3)]">
                                     <p className="font-semibold">Altura</p>
-                                    <p>{selected.height}</p>
+                                    <p>{viewPokemon.height}</p>
                                 </div>
                                 <div className="w-[calc(100%/3)]">
                                     <p className="font-semibold">Peso</p>
-                                    <p>{selected.weight}</p>
+                                    <p>{viewPokemon.weight}</p>
                                 </div>
                             </div>
                             <div className="containerStates mt-4">
                                 <div className="gap-x-2 gap-y-1 grid grid-cols-[auto_1fr_auto] items-baseline">
-                                    {selected.stats.map(stat => (
+                                    {viewPokemon.stats.map(stat => (
                                         <>
                                         <span>{stat.base_stat}</span>
                                         <div className="flex-grow h-[4px] bg-zinc-300 rounded">

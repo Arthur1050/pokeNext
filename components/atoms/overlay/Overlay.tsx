@@ -2,7 +2,7 @@
 import { useDispatch, useSelector } from "react-redux";
 import { OverlayDiv } from "./styles"
 import { Dispatch, SetStateAction } from "react"
-import { closeModal } from "@/redux/modal/actions";
+import { closeModalPokemon, closeModalSearch } from "@/redux/modal/actions";
 import { selPokemon } from "@/redux/pokemon/actions";
 
 
@@ -16,14 +16,18 @@ export default function Overlay({
     state?: boolean
 }) {
     const dispatch = useDispatch();
-    const {viewModal} = useSelector((rootReducer:any) => rootReducer.modalReducer);
+    const {pokemonView, searchView} = useSelector((rootReducer:any) => rootReducer.modalReducer);
+
     const closeOverlay = () => {
-      dispatch(closeModal());
-      setTimeout(() => dispatch(selPokemon({})), 200)
+      pokemonView && dispatch(closeModalPokemon());
+      pokemonView && setTimeout(() => dispatch(selPokemon({})), 200)
+      
+      searchView && dispatch(closeModalSearch());
     }
+
     return(
         /* viewModal ? ( */
-            <OverlayDiv className={viewModal ? 'overlayView':''} $view={viewModal}>
+            <OverlayDiv $view={pokemonView || searchView}>
                 <div onClick={closeOverlay} className='inset-0 absolute'></div>
                 {children}
             </OverlayDiv>

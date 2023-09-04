@@ -1,17 +1,20 @@
 import { AnyAction } from "redux";
 import { modalActionsTypes } from "./action-types";
 
-const initialState = {
-    viewModal: false
-}
+const initialState = {}
 
 export default function modalReducer(state = initialState, action:AnyAction) {
     switch(action.type) {
-        case modalActionsTypes.VIEW:
+        case modalActionsTypes.POKEMON_VIEW:
             return {
                 ...state, 
-                viewModal: action.payload
+                pokemonView: action.payload
             };
+        case modalActionsTypes.SEARCH:
+            return {
+                ...state,
+                searchView: action.payload
+            }
         default:
             return state;
     }

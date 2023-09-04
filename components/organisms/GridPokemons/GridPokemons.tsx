@@ -1,17 +1,13 @@
 'use client'
-import { Suspense, useCallback, useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react';
+import { Suspense, useEffect, useRef, useState } from 'react';
 import { GridPokemonsStyle } from "./styles";
 import { PokeballFill } from '@/public/assets/svg/pokeballFill';
 import { SkeletonDiv } from '@/components/atoms/SkeletonDiv/SkeletonDiv';
 import CardPokemon from '@/components/molecules/CardPokemon';
-
-export interface Pokemons {
-    name: string,
-    id: number
-}
+import { Pokemons } from './usePokemons';
 
 async function getPokemons(limit:number, offset:number):Promise<{results: Pokemons[]}> {
-    const api = 'https://pokeapi.co/api/v2/pokemon/';
+    const api = 'https://pokeapi.co/api/v2/pokemon/'; // Limite tem que ser de 649
 
     const res = await fetch(`${api}?limit=${limit}&offset=${offset}`, {
         cache: "no-cache"
@@ -26,9 +22,7 @@ async function getPokemons(limit:number, offset:number):Promise<{results: Pokemo
     return data;
 }
 
-export default function GridPokemons({getData}:{
-    getData: (selectedId:string) => Promise<{}>
-}) {
+export default function GridPokemons() {
     const loadMoreMsg = useRef<HTMLDivElement>(null)
     const gridContainer = useRef<HTMLDivElement>(null)
     const [pokemonsBlock, setPokemonsBlock] = useState<Array<JSX.Element[]>>([])
@@ -38,7 +32,7 @@ export default function GridPokemons({getData}:{
         const data = await getPokemons(30, currentPokemonsCount);
          
         // Monta um bloco de pokemons
-        const blockResult = data.results.map(pokemon => <CardPokemon key={pokemon.id} pokemon={pokemon} getData={getData}/>)
+        const blockResult = data.results.map(pokemon => <CardPokemon key={pokemon.id} pokemon={pokemon}/>)
 
         setPokemonsBlock(prevPokemonsBlock => [...prevPokemonsBlock , blockResult])
     }

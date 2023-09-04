@@ -3,15 +3,24 @@ import { PokeBall } from '@/public/assets/svg/Pokeball'
 import * as Styles from './Styles'
 import { Info } from 'lucide-react'
 import { MouseEvent, useEffect, useRef, useState } from 'react'
+import { useRouter } from 'next/navigation'
+
+interface IMenuItem {
+    icon: JSX.Element
+    name: string
+    route: string
+}
 
 export const itemsMenu = [
     {
-        icon: (<PokeBall />),
-        name: 'Pokemons'
+        icon: <PokeBall />,
+        name: 'Pokemons',
+        route: '/'
     },
     {
-        icon: (<Info size={21}/>),
-        name: 'Sobre'
+        icon: <Info size={21}/>,
+        name: 'Sobre',
+        route: '/About'
     }
 ]
 
@@ -19,11 +28,14 @@ export default function SideMenu() {
     const [selState, setSelState] = useState({})
     const firstItem = useRef<HTMLLIElement>(null)
 
-    const handleMenuItems = (ev:MouseEvent<HTMLLIElement, globalThis.MouseEvent>) => {
+    const router = useRouter()
+
+    const handleMenuItems = (ev:MouseEvent<HTMLLIElement, globalThis.MouseEvent>, obj:IMenuItem) => {
         setSelState({
             height: `${ev.currentTarget.offsetHeight}px`,
             top: `${ev.currentTarget.offsetTop}px`
         })
+        router.push(obj.route)
     }
 
     useEffect(() => {
@@ -38,7 +50,7 @@ export default function SideMenu() {
             <ul>
                 <div style={selState} />
                 {itemsMenu.map((el, i) => (
-                    <li key={i} ref={i ? null : firstItem} onClick={ev => handleMenuItems(ev)}>
+                    <li key={i} ref={i ? null : firstItem} onClick={ev => handleMenuItems(ev, el)}>
                         {el.icon}
                         <span>{el.name}</span>
                     </li>
