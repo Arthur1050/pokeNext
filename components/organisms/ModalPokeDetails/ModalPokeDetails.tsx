@@ -2,7 +2,7 @@
 import { SkeletonDiv } from "@/components/atoms/SkeletonDiv/SkeletonDiv";
 import { ModalLeftRightDiv } from "@/components/atoms/modalLeftRight/styles";
 import TypeBadge, { colorType } from "@/components/atoms/typeBadge/TypeBadge";
-import { Pokemon, usePokemon } from "@/utils/hooks/usePokemon";
+import { Pokemon, getPokemon } from "@/utils/hooks/usePokemon";
 import Image from "next/image";
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
@@ -60,7 +60,7 @@ export default function ModalPokeDetails() {
 
     useEffect(() => {
         (async () => {
-            const data = await usePokemon(selected);
+            const data = await getPokemon(selected);
             setViewPokemon(data)
         })();
     }, [])
@@ -84,7 +84,7 @@ export default function ModalPokeDetails() {
                             <p className="name">{viewPokemon.name}</p>
                             <div className="containerTypes">
                                 {viewPokemon.types.map((type, i) => (
-                                    <TypeBadge type={type}/>
+                                    <TypeBadge key={i} type={type}/>
                                 ))}
                             </div>
                             <div className="flex text-center mt-4">

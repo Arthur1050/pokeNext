@@ -20,7 +20,7 @@ export interface Pokemon {
     }>
 }
 
-export const usePokemon = async (id:number) => {
+export const getPokemon = async (id:number) => {
     const res = await fetch(`https://pokeapi.co/api/v2/pokemon/${id}`, {
         cache: "no-cache"
     });

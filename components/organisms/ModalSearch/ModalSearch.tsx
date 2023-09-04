@@ -8,7 +8,6 @@ import Image from "next/image";
 import TypeBadge from "@/components/atoms/typeBadge/TypeBadge";
 import { useDispatch } from "react-redux";
 import { closeModalSearch, openModalPokemon } from "@/redux/modal/actions";
-import { Pokemon, usePokemon } from "@/utils/hooks/usePokemon";
 import { selPokemon } from "@/redux/pokemon/actions";
 
 const SearchBarStyled = styled.div`
@@ -123,7 +122,7 @@ export default function ModalSearch() {
                     <ListPokemonsFetched>
                         <div>
                         {fetchPokemons.map(pokemon => (
-                            <div className="pokemonItem" onClick={() => showPokemon(pokemon.id)}>
+                            <div key={pokemon.id} className="pokemonItem" onClick={() => showPokemon(pokemon.id)}>
                                 <Image 
                                     src={`https://nexus.traction.one/images/pokemon/pokemon/${pokemon.id}.png`}
                                     height={'64'}
