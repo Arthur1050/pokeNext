@@ -1,7 +1,7 @@
 'use client'
 import { PokeBall } from '@/public/assets/svg/Pokeball'
 import * as Styles from './Styles'
-import { Info } from 'lucide-react'
+import { Award, Info } from 'lucide-react'
 import { MouseEvent, useEffect, useRef, useState } from 'react'
 import { useRouter } from 'next/navigation'
 
@@ -18,10 +18,15 @@ export const itemsMenu = [
         route: '/'
     },
     {
+        icon: <Award size={21}/>,
+        name: 'Ranking',
+        route: '/ranking'
+    },
+    {
         icon: <Info size={21}/>,
         name: 'Sobre',
         route: '/About'
-    }
+    },
 ]
 
 export default function SideMenu() {
